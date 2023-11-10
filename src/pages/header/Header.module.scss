@@ -1,0 +1,14 @@
+.title {
+    height: 70vh;
+  max-width: 800px !important;
+}
+
+.mask {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  span {
+    font-size: 52px;
+    margin-right: 12px;
+  }
+}

@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import { useState } from "react";
+import Lenis from "@studio-freight/lenis";
+import Styles from "./app.module.scss";
+import Nav from "./components/Nav/Nav";
+import Header from "./pages/header/Header";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [category, setCategory] = useState("cases");
+
+  const locomotion = async () => {
+    const lenis = new Lenis();
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    document.body.style.cursor = "default";
+    requestAnimationFrame(raf);
+  };
+
+  useEffect(() => {
+    if (window.innerWidth > 768) {
+      locomotion();
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <section className={Styles.app}>
+      <Nav category={category} setCategory={setCategory} />
+      {category === "cases" && (
+        <div>
+          <Header />
+        </div>
+      )}
+    </section>
+  );
+};
 
-export default App
+export default App;
